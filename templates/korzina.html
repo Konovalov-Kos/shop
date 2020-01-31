@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block center %}
+    <script src="{% static "js/korzina.js" %}"></script>
+    <section class="category-area">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8 col-md-12">
+					<div class="row" style="margin-top: 200px">
+                        {% if request.session.cart %}
+
+                            <form method="post">
+                            {% csrf_token %}
+                            <table>
+                                {% for prod in prod_in_cart %}
+                                    <tr>
+                                        <td>{{ prod.tovar }}</td>
+                                        <td><input name="prod_{{ prod.tovar.id }}" value="{{ prod.kol_vo }}"></td>
+                                        <td>{{ prod.tovar.price }}</td>
+                                        <td>{{ prod.total_price }}</td>
+                                        <td>
+                                            <button type="button" onclick="increase({{ prod.tovar.id }})">+</button>
+                                            <button type="button" onclick="decrease({{ prod.tovar.id }})">-</button>
+                                            <button type="button" onclick="remove({{ prod.tovar.id }})">X</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                            {{ summary_price }}
+                            <input type="hidden" name="action" value="modify_count">
+                            <button type="submit">Пересчитать</button>
+                            </form>
+                        {% else %}
+                            <p>Корзина пуста</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

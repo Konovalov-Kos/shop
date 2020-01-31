@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block center %}
+    <section class="category-area">
+        <div class="container">
+            <div class="row features-inner">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <br><br><br><br><br>
+                        {% for cat in product.prods_category_list %}
+                            <a href="{% url 'one_category' id=cat.id %}">{{ cat.name }}</a>
+                            {% if not forloop.last %}
+                                ->
+                            {% endif %}
+                        {% endfor %}: {{ product.name }}
+                        <h1>{{ product.name }}</h1>
+                        <img class="img-fluid" src="{% static product.image %}" alt=""><br>
+                        {{ product.price }}<br>
+                        {% if product.prev_price %}
+                            {{ product.prev_price }}<br>
+                        {% endif %}
+                        {% autoescape off %}
+                        {{ product.description }}<br>
+                        {% endautoescape %}
+                        {{ product.brand.name }}<br>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <input type="hidden" name="action" value="add_to_cart">
+                            <button>В корзину</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block center %}
+    <section class="category-area">
+        <div class="container">
+            <div class="row features-inner">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1>{{ cat.name }}</h1>
+                        {% for child_cat in cat.childs %}
+                            <a class="nav-link" href="{% url 'one_category' id=child_cat.id %}">{{ child_cat.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

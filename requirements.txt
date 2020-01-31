@@ -1,0 +1,8 @@
+Django==3.0.1
+psycopg2-binary
+ipython
+social-auth-app-django
+bs4
+requests
+celery
+redis
