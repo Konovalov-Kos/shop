@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -60,3 +61,33 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    NEW_ORDER = 0
+    IN_PROGRES = 1
+    DELIVERED = 2
+    AVAIL_STATUSES = [
+        (NEW_ORDER, 'Заказ готов к оплате'),
+        (IN_PROGRES, 'Отправлен'),
+        (DELIVERED, 'Доставлен'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.IntegerField(
+        choices=AVAIL_STATUSES,
+        default=NEW_ORDER,
+    )
+    modify_date = models.DateTimeField(auto_now=True)
+    price_to_pay = models.DecimalField("Цена заказа", max_digits=11, decimal_places=2)
+    phone = models.CharField("Телефон", max_length=50)
+    delivery_adress = models.TextField()
+    comment = models.TextField(blank=True, null=True)
+
+    @property
+    def products(self):
+        return ProductsInOrders.objects.filter(order=self)
+
+class ProductsInOrders(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    price = models.DecimalField("Цена", max_digits=11, decimal_places=2)
+    kvo = models.IntegerField("Количество")

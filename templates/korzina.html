@@ -30,6 +30,8 @@
                             <input type="hidden" name="action" value="modify_count">
                             <button type="submit">Пересчитать</button>
                             </form>
+                            <br>
+                            <a class="nav-link" href="{% url 'order' %}">Оформить заказ</a>
                         {% else %}
                             <p>Корзина пуста</p>
                         {% endif %}

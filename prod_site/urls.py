@@ -16,12 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from shopapp.views import MainView, CategoriesView, ProductView, KorzinaView
+from django.views.generic import TemplateView
+
+from shopapp.views import MainView, CategoriesView, ProductView, KorzinaView, OrderView, PayView, PayCallbackView
 from front.views import PageView, login, home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MainView.as_view()),
+    path('', MainView.as_view(), name="main"),
     path('page/<int:id>', PageView.as_view()),
     path('category/<int:id>', CategoriesView.as_view(), name='one_category'),
     path('product/<int:id>', ProductView.as_view(), name="one_product"),
@@ -30,5 +32,7 @@ urlpatterns = [
     path("home/", home, name="home"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("cart/", KorzinaView.as_view(), name="korzina"),
-
+    path("order/", OrderView.as_view(), name="order"),
+    path("about/", TemplateView.as_view(template_name="contact.html"), name="about"),
+    path("oplata/", PayView.as_view(), name="oplata"),
 ]

@@ -1,7 +1,7 @@
 {% load static %}
 <div class="col-lg-3 col-md-6">
     <div class="single-product">
-        <img class="img-fluid" src="{% static product.image_url %}" alt="">
+        <img class="img-fluid" src="{% static product.image %}" alt="">
         <div class="product-details">
             <h6><a href={% url 'one_product' id=product.id %}>{{ product.name }}</a></h6>
             <div class="price">

@@ -30,7 +30,6 @@ def parse_treas(url):
         d = link2dic(link)
         categ_menu = {}
         if li.find('div', {'class': 'category-item'}):
-            #print('child')
             categ_menu.update(colect_div(li))
             d.get(link.text).update(categ_menu)
         return d
@@ -41,19 +40,13 @@ def parse_treas(url):
             if not colect_li(li):
                 continue
             sub_category.update(colect_li(li))
-        #print(li.text)
         return sub_category
     def colect_div(li):
-        #div_column = li.find('div', {'class': 'category-column'})
         div_lists = li.find_all('div', {'class':'category-item'})
         categ = {}
         for div in div_lists:
             categ.update(link2dic(div.find('a', {'class': 'category-item__title'})))
             categ.get(div.find('a', {'class': 'category-item__title'}).text).update(colect_ul(div))
-            #print(categ.get(div.find('a', {'class': 'category-item__title'}).text))
-        #print(categ.keys())
-        #for i, j in categ.items():
-        #    print(i, j.keys())
         return categ
     def find_categories_treas(site):
         categories_treas = {}
@@ -110,7 +103,6 @@ def parse_items(urls_items):
                 continue
             cache.set(url1, site.text, 86400)
             page_content = site.text
-        #print(site.request)
 
         soup = BeautifulSoup(page_content, 'html.parser')
         try:
@@ -161,9 +153,3 @@ def parse_items(urls_items):
 
 
 
-#trea = parse_treas(url1)
-#urls = colect_url(trea)
-#urls_items = colect_urls_items(urls)
-#print(len(urls_items))
-#print(img_loader('https://i1.foxtrot.com.ua/product/MediumImages/6462902_0.jpg'))
-#pprint(parse_items('/ru/shop/pylesosy_rowenta_ro3786.html#bi26'))

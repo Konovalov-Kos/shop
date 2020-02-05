@@ -6,3 +6,5 @@ bs4
 requests
 celery
 redis
+liqpay==1.0.1
+liqpay-python3==1.1.2

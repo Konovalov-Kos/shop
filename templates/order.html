@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block center %}
+    <script src="{% static "js/korzina.js" %}"></script>
+    <section class="category-area">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8 col-md-12">
+					<div class="row" style="margin-top: 200px">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>Номер телефона: <input name="phone"></p><br>
+                            <p>Адрес доставки: <input name="adress"></p><br>
+                            <p>Комментарий к заказу:</p>
+                            <textarea name="comment"></textarea><br>
+                            <input type="hidden" name="action" value="to_payment">
+                            <button type="submit">Подтвердить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
