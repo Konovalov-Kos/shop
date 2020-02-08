@@ -3,15 +3,24 @@
 {% block center %}
     <script src="{% static "js/korzina.js" %}"></script>
     <section class="category-area">
-		<div class="container">
+		<div class="container" style="height: auto">
 			<div class="row justify-content-center">
-				<div class="col-lg-8 col-md-12">
-					<div class="row" style="margin-top: 200px">
+				<div class="col-lg-12 col-md-12 text-center">
+					<div class="text-center" style="margin-top: 200px">
+                    {% if user.is_authenticated %}
                         {% if request.session.cart %}
-
-                            <form method="post">
+                            <h1>Корзина</h1><br>
+                            <form method="post" class="text-center">
                             {% csrf_token %}
-                            <table>
+                            <table class="table text-center" style="color: black">
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Цена за товар, UAH</th>
+                                    <th>Цена за количество, UAH</th>
+                                </tr>
+                                </thead>
                                 {% for prod in prod_in_cart %}
                                     <tr>
                                         <td>{{ prod.tovar }}</td>
@@ -19,25 +28,31 @@
                                         <td>{{ prod.tovar.price }}</td>
                                         <td>{{ prod.total_price }}</td>
                                         <td>
-                                            <button type="button" onclick="increase({{ prod.tovar.id }})">+</button>
-                                            <button type="button" onclick="decrease({{ prod.tovar.id }})">-</button>
-                                            <button type="button" onclick="remove({{ prod.tovar.id }})">X</button>
+                                            <button type="button" class="btn-warning" onclick="increase({{ prod.tovar.id }})">+</button>
+                                            <button type="button" class="btn-warning" onclick="decrease({{ prod.tovar.id }})">-</button>
+                                            <button type="button" class="btn-warning" onclick="remove({{ prod.tovar.id }})">X</button>
                                         </td>
                                     </tr>
                                 {% endfor %}
                             </table>
-                            {{ summary_price }}
+                            <h4 style="display: inline-block">Сумма заказа: {{ summary_price }} UAH</h4>
                             <input type="hidden" name="action" value="modify_count">
-                            <button type="submit">Пересчитать</button>
+                            <button style="margin-left: 10px" class="btn-warning" type="submit">Пересчитать</button>
                             </form>
                             <br>
-                            <a class="nav-link" href="{% url 'order' %}">Оформить заказ</a>
+                            <button type="button" class="btn-warning btn-lg"><a style="color: black" class="nav-link" href="{% url 'order' %}">Оформить заказ</a></button><br>
                         {% else %}
-                            <p>Корзина пуста</p>
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <h1>Корзина пуста</h1><br>
+                            <img src="{% static "img/Nonecart.jpg" %}" width="100%" alt="">
                         {% endif %}
+                    {% else %}
+                        <p>Для того, чтобы заполнять корзину, необходимо <a href="{% url 'login' %}">авторизироваться</a></p>
+                    {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+    <div class="container" style="height: 300px">
     </section>
 {% endblock %}

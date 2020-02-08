@@ -1,37 +1,50 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block center %}
+    <link rel="stylesheet" href="{% static "bthh.css" %}">
     <section class="category-area">
         <div class="container">
             <div class="row features-inner">
+                <div class="col-lg-12 text-left">
+                    <br><br><br><br><br><hr>
+                        {% for cat in product.prods_category_list %}
+                            <h4 style="display: inline-block"><a style="color: black" href="{% url 'one_category' id=cat.id %}">{{ cat.name }}</a></h4>
+                            {% if not forloop.last %}
+                                <h4 style="display: inline-block">-></h4>
+                            {% endif %}
+                        {% endfor %}<h4 style="display: inline-block">: {{ product.name }}</h4><hr><br><br>
+                </div>
+                <div class="col-lg-12 text-center"><h2>{{ product.name }}</h2><br></div>
                 <div class="col-lg-6 text-left">
                     <div class="section-title">
-                        <br><br><br><br><br>
-                        {% for cat in product.prods_category_list %}
-                            <a href="{% url 'one_category' id=cat.id %}">{{ cat.name }}</a>
-                            {% if not forloop.last %}
-                                ->
-                            {% endif %}
-                        {% endfor %}: {{ product.name }}<br><br>
-                        <h2>{{ product.name }}</h2><br>
                         <img class="img-fluid" src="{% static product.image %}" alt=""><br><br>
                         <p><b style="color: #545b62">Цена:</b>{{ product.price }}</p>
                         {% if product.prev_price %}
                             <p><b style="color: #545b62">Цена ранее: </b><del style="color: #545b62">{{ product.prev_price }}</del></p>
-                        {% endif %}<br>
-                        <p><b style="color: #545b62">Brand: </b>{{ product.brand.name }}</p><br>
+                        {% endif %}
+                        <p><b style="color: #545b62">Brand: </b>{{ product.brand.name }}</p>
                         {% autoescape off %}
-                        <p><b style="color: #545b62">О товаре: </b></p><br>{{ product.description }}<br>
+                        <p><b style="color: #545b62">О товаре: </b></p>
+                            <button class="btn-warning btn-sm">Показать текст</button>
+                            <div class="text" tabindex="0">
+                                {{ product.description }}
+                            </div>
                         {% endautoescape %}
 
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="col-lg-12 text-center">
                         <form method="post">
                             {% csrf_token %}
                             <input type="hidden" name="product_id" value="{{ product.id }}">
                             <input type="hidden" name="action" value="add_to_cart">
-                            <button>В корзину</button>
+                            <button class="btn-warning btn-lg">В корзину</button>
                         </form>
                     </div>
-                </div>
+                {% else %}
+                    <p>Чтобы добавить товар в корзину необходимо <a href="{% url 'login' %}">авторизироваться</a></p>
+                {% endif %}
             </div>
         </div>
     </section>

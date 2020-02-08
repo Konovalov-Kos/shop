@@ -3,18 +3,18 @@
 {% block center %}
     <script src="{% static "js/korzina.js" %}"></script>
     <section class="category-area">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-8 col-md-12">
-					<div class="row" style="margin-top: 200px">
-                        <form method="post">
+		<div class="container text-center" style="margin-bottom: 200px">
+			<div class="text-center">
+				<div class="col-lg-12 col-md-12 text-center">
+					<div style="margin-top: 200px">
+                        <form method="post" style="margin-left: 25%; color: black; border: 10px solid #e0a800; border-radius: 10px; width: 500px" class="position: center">
                             {% csrf_token %}
-                            <p>Номер телефона: <input name="phone"></p><br>
-                            <p>Адрес доставки: <input name="adress"></p><br>
-                            <p>Комментарий к заказу:</p>
-                            <textarea name="comment"></textarea><br>
+                            <p>Номер телефона <input style="margin-left: 10px; margin-top: 30px" name="phone" placeholder="+380504523421" pattern="^\+\d{12}"></p><br>
+                            <p>Адрес доставки <input style="margin-left: 10px; width: 250px" name="adress" placeholder="г. Николаев, ул. Декабристов, 8"></p><br>
+                            <p>Комментарий к заказу</p>
+                            <textarea name="comment" rows="10" cols="50"></textarea><br>
                             <input type="hidden" name="action" value="to_payment">
-                            <button type="submit">Подтвердить</button>
+                            <button class="btn-warning btn-lg" type="submit" style="margin-top: 20px; margin-bottom: 30px">Подтвердить</button>
                         </form>
                     </div>
                 </div>

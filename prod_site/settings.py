@@ -25,7 +25,7 @@ SECRET_KEY = '$y6+db-fl&kiz4g-$&rs&g(ib+!fla1b#kd0sfw$#*u)^4v8t9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'testshopsite.pagekite.me']
 
 
 # Application definition

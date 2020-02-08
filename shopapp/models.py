@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+import datetime
 # Create your models here.
 
 class Category(models.Model):
@@ -33,13 +33,14 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField("Название", max_length=200)
-    description = models.TextField()
-    specification = models.TextField(default='')
+    description = models.TextField(blank=True, null=True)
+    specification = models.TextField(default='', blank=True, null=True)
     price = models.DecimalField("Цена", max_digits=11, decimal_places=2)
     prev_price = models.DecimalField("Пред. цена", max_digits=11, decimal_places=2, null=True, blank=True)
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE)
     image = models.CharField("Картинки", max_length=200, default='', null=True, blank=True)
+    add_date = models.DateTimeField(auto_now_add=False, default=datetime.datetime.now)
 
     @property
     def image_url(self):
@@ -91,3 +92,9 @@ class ProductsInOrders(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     price = models.DecimalField("Цена", max_digits=11, decimal_places=2)
     kvo = models.IntegerField("Количество")
+
+class News(models.Model):
+    name = models.CharField("Новость", max_length=100)
+    shorttext = models.CharField('Текст новости', max_length=300)
+    news_img = models.CharField("Картинка новости", max_length=200, default='', null=True, blank=True)
+    news_date = models.DateTimeField(auto_now=True)

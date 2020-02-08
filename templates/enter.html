@@ -1,5 +1,36 @@
 {% extends 'index.html' %}
+{% load static %}
 {% block center %}
-    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-    <a href="{% url 'social:begin' 'google' %}">Login with Google</a>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <div class="container">
+            <div class="row features-inner">
+                <div class="col-lg-12 text-center" style="height: auto; margin-bottom: 200px">
+                    <br><br><br><br><br>
+                    {% if msg %}
+                        <h4 style="border: 1px solid red">{{ msg }}</h4>
+                    {% endif %}
+                    <form method="post" style="width: 100%">
+                        {% csrf_token %}
+                        <table style="margin-left: 21%">
+                            <tr>
+                                <td><h4 class="text-right">Логин</h4></td>
+                                <td>{{ form.username }}</td>
+                            </tr>
+                            <tr>
+                                <td><h4 class="text-right">Пароль</h4></td>
+                                <td>{{ form.password1 }}</td>
+                            </tr>
+                            <tr>
+                                <td><h4 class="text-right">Подтверждение пароля</h4></td>
+                                <td>{{ form.password2 }}</td>
+                            </tr>
+                        </table><br>
+                        <button class="btn-warning btn-lg" type="submit">Вход</button>
+                    </form>
+                    <br><h2 style="color: #e0a800">ИЛИ</h2><br>
+                    <button type="button" class="btn-warning btn-lg"><a href="{% url 'social:begin' 'facebook' %}" style="color: black">Login with Facebook</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

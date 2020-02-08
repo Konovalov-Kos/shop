@@ -1,11 +1,12 @@
 from django.contrib import admin
 
-from .models import Category, Brand, Product, Order, ProductsInOrders
+from .models import Category, Brand, Product, Order, ProductsInOrders, News
 
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(Order)
 admin.site.register(ProductsInOrders)
+admin.site.register(News)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -24,5 +25,8 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Категория', {
             'fields': ('category',)
+        }),
+        ('Время добавления', {
+            'fields': ('add_date',)
         }),
     )

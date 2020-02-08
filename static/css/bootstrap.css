@@ -2539,20 +2539,20 @@ fieldset:disabled a.btn {
 }
 
 .btn-success {
-    color: #fff;
+    color: black;
     background-color: #28a745;
     border-color: #28a745
 }
 
 .btn-success:hover {
-    color: #fff;
+    color: black;
     background-color: #218838;
     border-color: #1e7e34
 }
 
 .btn-success.focus,
 .btn-success:focus {
-    box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 1)
 }
 
 .btn-success.disabled,
